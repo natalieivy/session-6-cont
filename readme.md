@@ -1090,6 +1090,12 @@ app.controller('NavController', function ($scope, $location) {
 })
 ```
 
+```html
+<div class="panel panel1" ng-class="{ active: isActive('/home') }">
+  <a href="/home">Home</a>
+</div>
+```
+
 ### Two Way Data Binding
 
 Add a `<select>` element bound to `$ctrl.orderProp` to the top paragraph, so that our users can pick from the two provided sorting options.
