@@ -1,4 +1,4 @@
-# Session 6
+# Session 6 
 
 ## Homework
 
@@ -837,29 +837,6 @@ when('/recipes/:recipeId', {
 })
 ```
 
-* `:recipeId` - the $route service uses the route declaration — '/recipes/:recipeId' — as a template that is matched against the current URL.
-
-All variables defined with the : prefix in the browser's location string are extracted into the (injectable) $routeParams object.
-
-Create a reference to the `recipe-detail` template:
-
-```js
-app.config(
-  function ($routeProvider, $locationProvider) {
-    $routeProvider.
-      when('/', {
-        template: `<div class="wrap">Test</div>`
-      }).
-      when('/recipes', {
-        template: '<recipe-list></recipe-list>'
-      }).
-      when('/recipes/:recipeId', {
-        template: '<recipe-detail></recipe-detail>'
-      });
-    // $locationProvider.html5Mode(true)
-  })
-```
-
 Add an href value using recipe.name:
 
 ```html
@@ -875,6 +852,10 @@ Add an href value using recipe.name:
     </li>
   </ul>
 ```
+
+* `:recipeId` - the $route service uses the route declaration — '/recipes/:recipeId' — as a template that is matched against the current URL.
+
+All variables defined with the : prefix in the browser's location string are extracted into the (injectable) $routeParams object.
 
 
 ### Creating the Recipe Details Component
@@ -898,6 +879,25 @@ Clicking on the recipe links in the list view should take you to our stub templa
 
 
 ### Adding JSON and the Detail Template
+
+Create a reference to the `recipe-detail` template:
+
+```js
+app.config(
+  function ($routeProvider, $locationProvider) {
+    $routeProvider.
+      when('/', {
+        template: `<div class="wrap">Test</div>`
+      }).
+      when('/recipes', {
+        template: '<recipe-list></recipe-list>'
+      }).
+      when('/recipes/:recipeId', {
+        template: '<recipe-detail></recipe-detail>'
+      });
+    // $locationProvider.html5Mode(true)
+  })
+```
 
 Review `data/recipe1309.json`:
 
@@ -933,12 +933,12 @@ Create `recipe-detail.html` in the includes folder:
 </div>
 ```
 
-Edit the `recipeDetail` compnent to use templateUrl:
+Edit the `recipeDetail` component to use templateUrl:
 
 ```js
-angular.module('foodApp').component('recipeDetail', {
+app.component('recipeDetail', {
   templateUrl: '/includes/recipe-detail.html',
-  ...
+    ...
 })
 ```
 
@@ -955,7 +955,7 @@ controller: function RecipeDetailController($http, $routeParams) {
 }
 ```
 
-One of the recipes is now linked.
+*One* of the recipes is now linked.
 
 
 # END
@@ -986,7 +986,7 @@ We are creating an image switcher so we will create a new function in the recipe
 
 Followed by a call to the function in the promise function to initialize the first image:
 
-`self.setImage(self.recipe.images[0]);`
+`self.setImage(this.recipe.images[0]);`
 
 ```js
 app.component('recipeDetail', {
@@ -1016,7 +1016,9 @@ And make the following change to the template, adding a class for styling and a 
 
 ### ng-click
 
-Add a list of images to the template that we will click on to swap out the main image. Note the `ng-click` directive and its call to the setImage function we created earlier:
+Add a list of images to the template that we will click on to swap out the main image. 
+
+Note the `ng-click` directive and its call to the setImage function we created earlier:
 
 ```html
 <ul class="recipe-thumbs">
@@ -1072,6 +1074,22 @@ The data that a user types into the input box (bound to $ctrl.query) is immediat
 
 The [filter](https://docs.angularjs.org/api/ng/filter/filter) function uses the `$ctrl.query` value to create a new array that contains only those records that match the query.
 
+
+
+### Notes
+
+```js
+app.controller('NavController', function ($scope, $location) {
+  $scope.isActive = function (viewLocation) {
+    // var active = (viewLocation === $location.path()) 
+    // console.log('vl ' + viewLocation)
+    // console.log('wl ' + window.location.href)
+    var active = (window.location.href.includes(viewLocation))
+    return active;
+  };
+})
+```
+
 ### Two Way Data Binding
 
 Add a `<select>` element bound to `$ctrl.orderProp` to the top paragraph, so that our users can pick from the two provided sorting options.
@@ -1102,10 +1120,6 @@ Chained the filter filter with the orderBy filter to further process the input f
 Add a line to the controller in `recipe-list.component.js` after the recipes array that sets the default value of orderProp to age. If we had not set a default value here, the orderBy filter would remain uninitialized until the user picked an option from the drop-down menu.
 
 `this.orderProp = 'date';`
-
-
-
-### Notes
 
 
 ```css
