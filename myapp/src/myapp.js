@@ -11,9 +11,22 @@ app.config(
     }).
     when('/recipes', {
       template: '<recipe-list></recipe-list>'
+    }).
+    when('/recipes/:recipeId', {
+      template: '<recipe-detail></recipe-detail>'
     })
     $locationProvider.html5Mode(true);
   });
+
+app.component('recipeDetail', {
+  templateUrl: '/includes/recipe-detail.html',
+
+  controller: function RecipeDetailController($http, $routeParams) {
+    $http.get('data/' + $routeParams.recipeId + '.json')
+    .then( response => this.recipe = response.data)
+  }
+
+});
 
 app.component('recipeList', {
   templateUrl: '/includes/recipes.html',
@@ -22,6 +35,8 @@ app.component('recipeList', {
   	
     $http.get('data/recipes.json')
     .then( response => this.recipes = response.data)
+
+    this.orderProp = 'date'
 
   }
 });

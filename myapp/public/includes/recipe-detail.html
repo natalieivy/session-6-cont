@@ -1,0 +1,14 @@
+<div class="wrap" itemscope itemtype="http://schema.org/Recipe">
+
+    <h1>{{ $ctrl.recipe.title }}</h1>
+
+    <p>{{ $ctrl.recipe.description }}</p>
+
+    <h3>Ingredients</h3>
+    <ul class="ingredients">
+        <li ng-repeat="ingredient in $ctrl.recipe.ingredients">
+            {{ ingredient }}
+        </li>
+    </ul>
+
+</div>
