@@ -100,8 +100,13 @@ app.component('recipeDetail', {
     var _this = this;
 
     $http.get('data/' + $routeParams.recipeId + '.json').then(function (response) {
-      return _this.recipe = response.data;
+      _this.recipe = response.data;
+      _this.setImage(_this.recipe.images[0]);
     });
+
+    this.setImage = function (imageUrl) {
+      this.mainImageUrl = imageUrl;
+    };
   }
 
 });
@@ -122,7 +127,8 @@ app.component('recipeList', {
 
 app.controller('NavController', function ($scope, $location) {
   $scope.isActive = function (viewLocation) {
-    var active = viewLocation === $location.path();
+    // var active = (viewLocation === $location.path());
+    var active = window.location.href.includes(viewLocation);
     return active;
   };
 });

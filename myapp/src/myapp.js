@@ -22,8 +22,16 @@ app.component('recipeDetail', {
   templateUrl: '/includes/recipe-detail.html',
 
   controller: function RecipeDetailController($http, $routeParams) {
-    $http.get('data/' + $routeParams.recipeId + '.json')
-    .then( response => this.recipe = response.data)
+    $http.get('data/' + $routeParams.recipeId +  '.json')
+    .then(response => {
+      this.recipe = response.data
+      this.setImage(this.recipe.images[0])
+    })
+
+    this.setImage = function (imageUrl) {
+      this.mainImageUrl = imageUrl;
+    }
+
   }
 
 });
@@ -43,7 +51,8 @@ app.component('recipeList', {
 
 app.controller('NavController', function ($scope, $location) {
   $scope.isActive = function (viewLocation) {
-    var active = (viewLocation === $location.path());
+    // var active = (viewLocation === $location.path());
+    var active = (window.location.href.includes(viewLocation))
     return active;
   };
 })
