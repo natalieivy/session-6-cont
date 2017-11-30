@@ -1,0 +1,17 @@
+{
+  "name": "review1",
+  "title": "Custard's Last Stand",
+  "description": "For delicious custard, go here!",
+  "contents": "I would stand for the Last Stand.",
+  "image": "resto1.png",
+  "mainImageUrl": "resto1-custardflan.jpg",
+  "images": [
+    "resto1-custardflan.jpg",
+    "resto1-custardcake2.jpg",
+    "resto1-custardcake.jpg"
+  ],
+  "favorites": [
+    "the custard cake",
+    "the flan"
+  ]
+}

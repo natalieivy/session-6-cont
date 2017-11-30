@@ -1,0 +1,26 @@
+c<div class="wrap" itemscope itemtype="http://schema.org/Review">
+
+    <h1>{{ $ctrl.review.title }}</h1>
+    <img ng-src="images/home/{{$ctrl.mainImageUrl}}" class="review-detail-image" />
+
+    <ul class="review-thumbs">
+        <li ng-repeat="img in $ctrl.review.images">
+            <img ng-src="images/home/{{img}}" ng-click="$ctrl.setImage(img)" />
+        </li>
+    </ul>
+
+    <p>{{ $ctrl.review.description }}</p>
+
+    <h3>The Verdict</h3>
+
+    <p>{{ $ctrl.review.contents }}</p>
+
+    <h3>My Favorites</h3>
+    <ul class="favorites">
+        <li ng-repeat="favorite in $ctrl.review.favorites">
+            {{ favorite }}
+        </li>
+    </ul>
+
+</div>
+
